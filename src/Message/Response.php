@@ -35,7 +35,7 @@ class Response extends AbstractResponse
     }
     public function isSuccessful()
     {
-        $hasErrorCode = array_key_exists('sale', $this->data) && array_key_exists('errorcode', $this->data->sale);
+        $hasErrorCode = array_key_exists('sale', $this->data) && array_key_exists('errorcode', $this->data['sale']);
         return !$hasErrorCode;
     }
 
@@ -46,11 +46,11 @@ class Response extends AbstractResponse
 
     public function getMessage()
     {
-        return isset($this->data['RESPMSG']) ? $this->data['RESPMSG'] : null;
+        return array_key_exists('sale', $this->data) ? $this->data['sale']['message'] : null;
     }
 
     public function getCode()
     {
-        return isset($this->data['RESULT']) ? (int) $this->data['RESULT'] : null;
+        return array_key_exists('sale', $this->data) ? $this->data['sale']['errorcode'] : null;
     }
 }

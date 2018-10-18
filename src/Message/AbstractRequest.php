@@ -11,7 +11,7 @@ abstract class AbstractRequest extends OmnipayAbstractRequest
 {
     use AccountTrait;
 
-    protected $endpoint = 'https://aliantpay.io/api/payments.asmx/NewSale';
+    protected $endpoint = 'https://aliantpay.io/api/payments.asmx';
 
     public function getEmail()
     {
@@ -20,7 +20,11 @@ abstract class AbstractRequest extends OmnipayAbstractRequest
 	
     public function getAuthString()
     {
-        return base64_encode($this->username).':'.base64_encode($this->password);
+        return base64_encode(
+			$this->getParameter('username')).
+			':'.
+			base64_encode($this->getParameter('password')
+		);
 	}
 
 	public function getEndpoint()

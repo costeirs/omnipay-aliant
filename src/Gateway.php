@@ -11,24 +11,22 @@ use \Omnipay\Common\AbstractGateway;
 class Gateway extends AbstractGateway
 {
     use AccountTrait;
+    
+    public function getName()
+    {
+        return 'Aliant';
+    }
 
-	private $authStr;
-	
-	public function getName()
-	{
-		return 'Aliant';
-	}
-
-	public function getDefaultParameters()
+    public function getDefaultParameters()
     {
         return array(
             'username' => '',
             'password' => '',
             'testMode' => false,
         );
-	}
+    }
 
-	public function gettestMode()
+    public function gettestMode()
     {
         return $this->getParameter('testMode');
     }
@@ -37,17 +35,19 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('testMode', $value);
     }
-	
-	/**
-	* @param array $parameters
-	* @return \Omnipay\Aliant\Message\PurchaseRequest
-	*/
-	public function purchase(array $parameters = array())
-	{
-		return $this->createRequest('\Omnipay\Aliant\Message\PurchaseRequest', $parameters);
-	}
+    
+    /**
+     * Create a new sale request.
+     *
+     * @param array $parameters
+     * @return \Omnipay\Aliant\Message\PurchaseRequest
+     */
+    public function purchase(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Aliant\Message\PurchaseRequest', $parameters);
+    }
 
-	/**
+    /**
      * Create a sale inquiry request.
      *
      * @param array $parameters

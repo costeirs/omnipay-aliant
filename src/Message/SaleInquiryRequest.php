@@ -4,30 +4,25 @@ namespace Omnipay\Aliant\Message;
 /**
  * Dummy Authorize Request
  */
-class PurchaseRequest extends AbstractRequest
+class SaleInquiryRequest extends AbstractRequest
 {
     public function getData()
     {
-        $data = array(
-            'amount' => $this->getAmount(),
-            'email' => $this->getEmail(),
-            'email_it' => false
-        );
-        return $data;
+        $this->validate('transactionReference');
+        return array();
     }
 
     public function sendData($data)
     {
-        $json = json_encode($data);
+        $transactionid = $this->getTransactionReference();
 
         $httpResponse = $this->httpClient->request(
             'POST',
-            $this->getEndpoint().'/NewSale',
+            $this->getEndpoint().'/SeeSale',
             [
                 "Content-Type" => "application/x-www-form-urlencoded; charset=utf-8"
             ],
-            // byzantine parameter serialization
-            "authorization=".$this->getAuthString()."&json=".$json
+            "authorization=".$this->getAuthString()."&transactionid=".$transactionid
         );
         return $this->response = new Response($this, $httpResponse->getBody()->getContents());
     }
