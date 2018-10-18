@@ -1,0 +1,27 @@
+HTTP/1.1 200 OK
+Cache-Control: private, max-age=0
+Content-Type: text/xml; charset=utf-8
+Server: Microsoft-IIS/8.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+X-Powered-By-Plesk: PleskWin
+Date: Fri, 05 Oct 2018 22:27:48 GMT
+Connection: close
+Content-Length: 379
+
+<?xml version="1.0" encoding="utf-8"?>
+<string xmlns="Aliant.Api">{ 	"sale_id":"101118",
+	"status":"New",
+	"seller":"Development Team",
+	"date":"01/01/0001 12:00 AM",
+	"amount":"$1.00",
+	"tax":"$0.00",
+	"name":"Stephen Costeira",
+	"email":"example@example.com",
+	"phone":"2625952345",
+	"address":"",
+	"city":"",
+	"state":"",
+	"zipcode":"",
+	"country":""
+ }</string>
