@@ -24,6 +24,6 @@ class SaleInquiryRequest extends AbstractRequest
             ],
             "authorization=".$this->getAuthString()."&transactionid=".$transactionid
         );
-        return $this->response = new Response($this, $httpResponse->getBody()->getContents());
+        return $this->response = new InquiryResponse($this, $httpResponse->getBody()->getContents());
     }
 }

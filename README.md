@@ -28,8 +28,7 @@ $request = $gateway->purchase([
     'returnUrl' => 'http://.../complete'
 ]);
 
-// (in future) returns redirect
-// (currently) returns the new invoice
+// returns redirect to hosted invoice page
 $response = $request->send();
 
 var_dump($response);

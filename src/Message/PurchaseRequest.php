@@ -29,6 +29,6 @@ class PurchaseRequest extends AbstractRequest
             // byzantine parameter serialization
             "authorization=".$this->getAuthString()."&json=".$json
         );
-        return $this->response = new Response($this, $httpResponse->getBody()->getContents());
+        return $this->response = new PurchaseResponse($this, $httpResponse->getBody()->getContents());
     }
 }

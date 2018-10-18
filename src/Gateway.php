@@ -22,6 +22,7 @@ class Gateway extends AbstractGateway
         return array(
             'username' => '',
             'password' => '',
+            'returnUrl' => '',
             'testMode' => false,
         );
     }
@@ -34,6 +35,15 @@ class Gateway extends AbstractGateway
     public function settestMode($value)
     {
         return $this->setParameter('testMode', $value);
+    }
+    public function getreturnUrl()
+    {
+        return $this->getParameter('returnUrl');
+    }
+
+    public function setreturnUrl($value)
+    {
+        return $this->setParameter('returnUrl', $value);
     }
     
     /**
