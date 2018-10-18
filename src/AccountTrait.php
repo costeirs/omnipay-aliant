@@ -4,9 +4,10 @@ namespace Omnipay\Aliant;
 /**
  * Appease omnipay test gods
  */
-trait AccountTrait {
+trait AccountTrait
+{
 
-	public function getUsername()
+    public function getUsername()
     {
         return $this->getParameter('username');
     }
@@ -14,9 +15,9 @@ trait AccountTrait {
     public function setUsername($username)
     {
         return $this->setParameter('username', $username);
-	}
-	
-	public function getPassword()
+    }
+    
+    public function getPassword()
     {
         return $this->getParameter('password');
     }

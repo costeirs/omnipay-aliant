@@ -5,6 +5,7 @@ use \Omnipay\Aliant\AccountTrait;
 
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Exception\InvalidResponseException;
+
 /**
  * Aliant Response
  */
