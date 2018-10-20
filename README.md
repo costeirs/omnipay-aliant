@@ -15,10 +15,9 @@ This version only supports PHP 7.1+.
 $gateway = Omnipay::create('Aliant');
 
 // Initialise the gateway
-$gateway->initialize(array(
-    'apiKey' => 'API-KEY',
-    'locale' => 'en',
-    'testMode' => true, // Or false, when you want to use the production environment
+$gateway->initialize([
+    'username' => 'YOUR-USERNAME',
+    'password' => 'YOUR-PASSWORD',
 ));
 
 // create a new invoice
@@ -28,10 +27,11 @@ $request = $gateway->purchase([
     'returnUrl' => 'http://.../complete'
 ]);
 
-// returns redirect to hosted invoice page
+// returns data regarding the current sale (i.e. invoice id)
 $response = $request->send();
 
-var_dump($response);
+// redirect to hosted invoice page
+$response->redirect();
 ```
 
 ### See status of existing invoice

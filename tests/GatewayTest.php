@@ -11,6 +11,7 @@ class AliantGatewayTest extends GatewayTestCase
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
         $this->options = array(
             'amount' => '1.00',
+            'description' => 'Order 123',
             'returnUrl' => 'http://www.example.com/complete'
         );
 
@@ -28,7 +29,7 @@ class AliantGatewayTest extends GatewayTestCase
         $this->assertTrue($response->isRedirect());
         $this->assertFalse($response->isSuccessful());
         $this->assertEquals('101118', $response->getTransactionReference());
-        $this->assertEquals('https://aliantpay.io/invoice?i=101118&w=http://www.example.com/complete', $response->getRedirectUrl());
+        $this->assertEquals('https://aliantpay.io/invoice?i=101118&w=http%3A%2F%2Fwww.example.com%2Fcomplete', $response->getRedirectUrl());
     }
     
     public function testPurchaseFailure()

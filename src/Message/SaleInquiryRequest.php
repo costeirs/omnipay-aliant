@@ -6,6 +6,11 @@ namespace Omnipay\Aliant\Message;
  */
 class SaleInquiryRequest extends AbstractRequest
 {
+    public function getEndpoint()
+    {
+        return parent::getEndpoint() . '/SeeSale';
+    }
+
     public function getData()
     {
         $this->validate('transactionReference');
@@ -18,7 +23,7 @@ class SaleInquiryRequest extends AbstractRequest
 
         $httpResponse = $this->httpClient->request(
             'POST',
-            $this->getEndpoint().'/SeeSale',
+            $this->getEndpoint(),
             [
                 "Content-Type" => "application/x-www-form-urlencoded; charset=utf-8"
             ],

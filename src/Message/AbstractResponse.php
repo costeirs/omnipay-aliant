@@ -18,6 +18,7 @@ abstract class AbstractResponse extends OmnipayAbstractResponse
     {
         return $this->getParameter('email');
     }
+
     public function __construct(RequestInterface $request, $data)
     {
         $this->request = $request;
@@ -41,24 +42,38 @@ abstract class AbstractResponse extends OmnipayAbstractResponse
         // done
         $this->data = $message;
     }
+
     public function isSuccessful()
     {
+        $hasData = !empty($this->data);
         $hasErrorCode = array_key_exists('sale', $this->data) && array_key_exists('errorcode', $this->data['sale']);
-        return !$hasErrorCode;
+        return $hasData && !$hasErrorCode;
     }
 
+    /**
+     * Transaction ID as assigned from Aliant
+     */
     public function getTransactionReference()
     {
+        if (empty($this->data)) {
+            return null;
+        }
         return $this->data['sale_id'] ?: null;
     }
 
+    /**
+     * Error message
+     */
     public function getMessage()
     {
-        return array_key_exists('sale', $this->data) ? $this->data['sale']['message'] : null;
+        return !empty($this->data) && array_key_exists('sale', $this->data) ? $this->data['sale']['message'] : null;
     }
 
+    /**
+     * Error code
+     */
     public function getCode()
     {
-        return array_key_exists('sale', $this->data) ? $this->data['sale']['errorcode'] : null;
+        return !empty($this->data) && array_key_exists('sale', $this->data) ? $this->data['sale']['errorcode'] : null;
     }
 }

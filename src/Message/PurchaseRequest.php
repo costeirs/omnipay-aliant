@@ -6,10 +6,16 @@ namespace Omnipay\Aliant\Message;
  */
 class PurchaseRequest extends AbstractRequest
 {
+    public function getEndpoint()
+    {
+        return parent::getEndpoint() . '/NewSale';
+    }
+
     public function getData()
     {
         $data = array(
             'amount' => $this->getAmount(),
+            'description' => $this->getDescription(),
             'email' => $this->getEmail(),
             'email_it' => false
         );
@@ -22,7 +28,7 @@ class PurchaseRequest extends AbstractRequest
 
         $httpResponse = $this->httpClient->request(
             'POST',
-            $this->getEndpoint().'/NewSale',
+            $this->getEndpoint(),
             [
                 "Content-Type" => "application/x-www-form-urlencoded; charset=utf-8"
             ],

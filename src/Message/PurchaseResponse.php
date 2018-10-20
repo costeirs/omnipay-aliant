@@ -13,11 +13,24 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
      */
     public function getRedirectUrl()
     {
-        return
-        'https://aliantpay.io/invoice?i='.
-        $this->getTransactionReference().
-        '&w='.
-        $this->getRequest()->getReturnUrl();
+        $parts = [];
+
+        // invoice_id?
+        if ($this->getTransactionReference()) {
+            $parts['i'] = $this->getTransactionReference();
+        }
+
+        // returnUrl?
+        if ($this->getRequest()->getReturnUrl()) {
+            $parts['w'] = $this->getRequest()->getReturnUrl();
+        }
+
+        // assemble url
+        $url = 
+        'https://aliantpay.io/invoice?'.
+        http_build_query($parts);
+
+        return $url;
     }
 
     public function isRedirect()
