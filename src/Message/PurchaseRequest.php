@@ -13,6 +13,8 @@ class PurchaseRequest extends AbstractRequest
 
     public function getData()
     {
+        $this->validate('amount');
+
         $data = array(
             'amount' => $this->getAmount(),
             'description' => $this->getDescription(),

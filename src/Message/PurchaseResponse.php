@@ -26,9 +26,9 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         }
 
         // assemble url
-        $url = 
+        $url =
         'https://aliantpay.io/invoice?'.
-        http_build_query($parts);
+        http_build_query($parts, '', '&');
 
         return $url;
     }

@@ -14,6 +14,9 @@ abstract class AbstractRequest extends OmnipayAbstractRequest
 
     protected $endpoint = 'https://aliantpay.io/api/payments.asmx';
 
+    protected $negativeAmountAllowed = false;
+    protected $zeroAmountAllowed = false;
+
     public function getEmail()
     {
         return $this->getParameter('email');

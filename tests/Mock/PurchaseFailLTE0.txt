@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Cache-Control: private, max-age=0
+Content-Type: text/xml; charset=utf-8
+Server: Microsoft-IIS/8.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+X-Powered-By-Plesk: PleskWin
+Date: Sat, 20 Oct 2018 03:29:13 GMT
+Connection: close
+Content-Length: 163
+
+<?xml version="1.0" encoding="utf-8"?>
+<string xmlns="Aliant.Api">{ "sale":{
+	"errorcode":"422",
+	"message":"The price has to be bigger than zero."
+	}
+ }</string>
