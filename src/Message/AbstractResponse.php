@@ -37,7 +37,7 @@ abstract class AbstractResponse extends OmnipayAbstractResponse
         // break out of xml
         $message = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOWARNING);
         $message = trim($message);
-        $message = json_decode($message, true);
+        $message = json5_decode($message, true);
 
         // done
         $this->data = $message;

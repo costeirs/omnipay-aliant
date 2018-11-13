@@ -3,7 +3,8 @@
     "description": "Aliant driver for the Omnipay PHP payment processing library",
     "type": "library",
     "require": {
-        "omnipay/common": "^3.0"
+        "omnipay/common": "^3.0",
+        "colinodell/json5": "^2.0"
     },
     "require-dev": {
         "omnipay/tests": "^3.1",
@@ -19,7 +20,7 @@
         },
         {
             "name": "Omnipay Contributors",
-            "homepage": "https://github.com/thephpleague/omnipay-payflow/contributors"
+            "homepage": "https://github.com/costeirs/omnipay-aliant/contributors"
         }
     ],
     "autoload": {
