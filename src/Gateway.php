@@ -5,6 +5,9 @@ use \Omnipay\Aliant\AccountTrait;
 
 use \Omnipay\Common\AbstractGateway;
 
+use \Omnipay\Aliant\Message\PurchaseRequest;
+use \Omnipay\Aliant\Message\SaleInquiryRequest;
+
 /**
  * Aliant Gateway
  */
@@ -54,7 +57,7 @@ class Gateway extends AbstractGateway
      */
     public function purchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Aliant\Message\PurchaseRequest', $parameters);
+        return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 
     /**
@@ -65,6 +68,6 @@ class Gateway extends AbstractGateway
      */
     public function fetchTransaction(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Aliant\Message\SaleInquiryRequest', $parameters);
+        return $this->createRequest(SaleInquiryRequest::class, $parameters);
     }
 }

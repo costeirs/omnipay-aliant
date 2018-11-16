@@ -44,4 +44,14 @@ abstract class AbstractRequest extends OmnipayAbstractRequest
     {
         return null;
     }
+
+    public function getSendInvoice()
+    {
+        return $this->getParameter('email_it');
+    }
+
+    public function setSendInvoice($email_it)
+    {
+        return $this->setParameter('email_it', $email_it);
+    }
 }

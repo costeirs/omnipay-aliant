@@ -1,6 +1,8 @@
 <?php
 namespace Omnipay\Aliant\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
+
 /**
  * Dummy Authorize Request
  */
@@ -15,12 +17,18 @@ class PurchaseRequest extends AbstractRequest
     {
         $this->validate('amount');
 
+        if ($this->getSendInvoice() && empty($this->getEmail())) {
+            throw new InvalidRequestException("The email paramater cannot be empty if email_it is true");
+        }
+
         $data = array(
             'amount' => $this->getAmount(),
             'description' => $this->getDescription(),
-            'email' => $this->getEmail(),
-            'email_it' => false
+            'email_it' => $this->getSendInvoice()
         );
+        if (!empty($this->getEmail())) {
+            $data['email'] = $this->getEmail();
+        }
         return $data;
     }
 

@@ -55,7 +55,7 @@ abstract class AbstractResponse extends OmnipayAbstractResponse
      */
     public function getTransactionReference()
     {
-        if (empty($this->data)) {
+        if (empty($this->data) || $this->getCode() !== null) {
             return null;
         }
         return $this->data['sale_id'] ?: null;

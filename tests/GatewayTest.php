@@ -3,6 +3,8 @@ namespace Omnipay\Aliant;
 
 use Omnipay\Tests\GatewayTestCase;
 
+use \Omnipay\Common\Exception\InvalidRequestException;
+
 class AliantGatewayTest extends GatewayTestCase
 {
     public function setUp()
@@ -59,5 +61,22 @@ class AliantGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isSuccessful());
         $this->assertEquals('404', $response->getCode());
         $this->assertEquals('Unexistent transaction', $response->getMessage());
+    }
+
+
+    public function testPurchaseSuccessWithNullEmail()
+    {
+        $this->expectException(InvalidRequestException::class);
+
+        $this->setMockHttpResponse('PurchaseSuccess.txt');
+
+        $opts = $this->options;
+        $opts['email'] = null;
+        $opts['email_it'] = true;
+
+        $operation = $this->gateway->purchase($opts);
+        $operation->setSendInvoice(true);
+
+        $response = $operation->send();
     }
 }
