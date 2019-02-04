@@ -30,12 +30,12 @@ class Gateway extends AbstractGateway
         );
     }
 
-    public function gettestMode()
+    public function getTestMode()
     {
         return $this->getParameter('testMode');
     }
 
-    public function settestMode($value)
+    public function setTestMode($value)
     {
         return $this->setParameter('testMode', $value);
     }

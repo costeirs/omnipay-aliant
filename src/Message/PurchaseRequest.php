@@ -24,7 +24,8 @@ class PurchaseRequest extends AbstractRequest
         $data = array(
             'amount' => $this->getAmount(),
             'description' => $this->getDescription(),
-            'email_it' => $this->getSendInvoice()
+            'email_it' => $this->getSendInvoice(),
+            'sandbox' => $this->getTestMode(),
         );
         if (!empty($this->getEmail())) {
             $data['email'] = $this->getEmail();

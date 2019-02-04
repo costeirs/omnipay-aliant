@@ -18,6 +18,7 @@ $gateway = Omnipay::create('Aliant');
 $gateway->initialize([
     'username' => 'YOUR-USERNAME',
     'password' => 'YOUR-PASSWORD',
+    'testMode' => false,
 ));
 
 // create a new invoice
