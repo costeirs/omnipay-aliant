@@ -13,6 +13,26 @@ class PurchaseRequest extends AbstractRequest
         return parent::getEndpoint() . '/NewSale';
     }
 
+    protected function getBillingData()
+    {
+        $data = array();
+        if ($card = $this->getCard()) {
+            if (!empty($card->getBillingName())) {
+                $data['name'] = $card->getBillingName();
+            } else {
+                $data['name'] = $card->getBillingFirstName().' '.$card->getBillingLastName();
+            }
+            $data['phone'] = $card->getBillingPhone();
+            $data['email'] = $card->getEmail();
+            $data['address'] = $card->getBillingAddress1();
+            $data['city'] = $card->getBillingCity();
+            $data['state'] = $card->getBillingState();
+            $data['zip'] = $card->getBillingPostcode();
+            $data['country'] = $card->getBillingCountry();
+        }
+        return $data;
+    }
+
     public function getData()
     {
         $this->validate('amount');
@@ -24,12 +44,15 @@ class PurchaseRequest extends AbstractRequest
         $data = array(
             'amount' => $this->getAmount(),
             'description' => $this->getDescription(),
+            'email' => $this->getEmail(),
             'email_it' => $this->getSendInvoice(),
             'sandbox' => $this->getTestMode(),
         );
-        if (!empty($this->getEmail())) {
-            $data['email'] = $this->getEmail();
-        }
+        
+        $data = array_merge($data, $this->getBillingData());
+
+        $data = array_filter($data, 'strlen');
+        
         return $data;
     }
 
