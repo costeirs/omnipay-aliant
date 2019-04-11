@@ -8,11 +8,11 @@ use Omnipay\Common\Exception\InvalidResponseException;
 /**
  * Dummy Authorize Request
  */
-class SaleInquiryRequest extends AbstractRequest
+class RefundRequest extends AbstractRequest
 {
     public function getEndpoint()
     {
-        return parent::getEndpoint() . '/SeeSale';
+        return parent::getEndpoint() . '/RefundSale';
     }
 
     /**
@@ -40,7 +40,7 @@ class SaleInquiryRequest extends AbstractRequest
             [
                 "Content-Type" => "application/x-www-form-urlencoded; charset=utf-8"
             ],
-            "authorization=" . $this->getAuthString() . "&transactionid=" . $transactionId
+            "authorization=" . $this->getAuthString() . "&saleid=" . $transactionId
         );
         return $this->response = new InquiryResponse($this, $httpResponse->getBody()->getContents());
     }

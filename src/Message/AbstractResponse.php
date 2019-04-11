@@ -1,11 +1,11 @@
 <?php
+
 namespace Omnipay\Aliant\Message;
 
-use \Omnipay\Aliant\AccountTrait;
-
+use Omnipay\Aliant\AccountTrait;
+use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\AbstractResponse as OmnipayAbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
-use Omnipay\Common\Exception\InvalidResponseException;
 
 /**
  * Abstract Response
@@ -19,16 +19,21 @@ abstract class AbstractResponse extends OmnipayAbstractResponse
         return $this->getParameter('email');
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param $data
+     * @throws InvalidResponseException
+     */
     public function __construct(RequestInterface $request, $data)
     {
-        $this->request = $request;
+        parent::__construct($request, $data);
         if (empty($data)) {
             throw new InvalidResponseException;
         }
 
         /**
          * byzantine data deserialization procedure:
-         *  - it's json, inside xml
+         *  - it's json, inside an xml SOAP response
          *  - and there's no type field to tell what class it'll be;
          *  - status will always be 200 OK even if it errors out
          *  - but there's no status field if everything actually was OK
@@ -46,7 +51,7 @@ abstract class AbstractResponse extends OmnipayAbstractResponse
     public function isSuccessful()
     {
         $hasData = !empty($this->data);
-        $hasErrorCode = array_key_exists('sale', $this->data) && array_key_exists('errorcode', $this->data['sale']);
+        $hasErrorCode = array_key_exists('error', $this->data) && array_key_exists('code', $this->data['error']);
         return $hasData && !$hasErrorCode;
     }
 
@@ -55,18 +60,10 @@ abstract class AbstractResponse extends OmnipayAbstractResponse
      */
     public function getTransactionReference()
     {
-        if (empty($this->data) || $this->getCode() !== null) {
+        if (empty($this->data) || $this->getCode() !== null || !array_key_exists('sale_id', $this->data)) {
             return null;
         }
-        return $this->data['sale_id'] ?: null;
-    }
-
-    /**
-     * Error message
-     */
-    public function getMessage()
-    {
-        return !empty($this->data) && array_key_exists('sale', $this->data) ? $this->data['sale']['message'] : null;
+        return $this->data['sale_id'];
     }
 
     /**
@@ -74,6 +71,14 @@ abstract class AbstractResponse extends OmnipayAbstractResponse
      */
     public function getCode()
     {
-        return !empty($this->data) && array_key_exists('sale', $this->data) ? $this->data['sale']['errorcode'] : null;
+        return !empty($this->data) && array_key_exists('error', $this->data) ? $this->data['error']['code'] : null;
+    }
+
+    /**
+     * Error message
+     */
+    public function getMessage()
+    {
+        return !empty($this->data) && array_key_exists('error', $this->data) ? $this->data['error']['message'] : null;
     }
 }

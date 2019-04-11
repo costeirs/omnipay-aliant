@@ -10,8 +10,8 @@ Connection: close
 Content-Length: 143
 
 <?xml version="1.0" encoding="utf-8"?>
-<string xmlns="Aliant.Api">{ "sale":{
-	"errorcode":"422",
+<string xmlns="Aliant.Api">{ "error":{
+	"code":"422",
 	"message":"Error saving sale"
 	}
  }</string>

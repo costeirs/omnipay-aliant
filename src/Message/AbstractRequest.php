@@ -1,8 +1,8 @@
 <?php
+
 namespace Omnipay\Aliant\Message;
 
-use \Omnipay\Aliant\AccountTrait;
-
+use Omnipay\Aliant\AccountTrait;
 use Omnipay\Common\Message\AbstractRequest as OmnipayAbstractRequest;
 
 /**
@@ -21,12 +21,12 @@ abstract class AbstractRequest extends OmnipayAbstractRequest
     {
         return $this->getParameter('email');
     }
-    
+
     public function getAuthString()
     {
         return
-            base64_encode($this->getParameter('username')).
-            ':'.
+            base64_encode($this->getParameter('username')) .
+            ':' .
             base64_encode($this->getParameter('password'));
     }
 
@@ -34,7 +34,7 @@ abstract class AbstractRequest extends OmnipayAbstractRequest
     {
         return $this->endpoint;
     }
-    
+
     public function getData()
     {
         return [];

@@ -4,7 +4,10 @@
     "type": "library",
     "require": {
         "omnipay/common": "^3.0",
-        "colinodell/json5": "^2.0"
+        "colinodell/json5": "^2.0",
+        "ext-simplexml": "*",
+        "ext-libxml": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "omnipay/tests": "^3.1",

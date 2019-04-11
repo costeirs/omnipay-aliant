@@ -1,17 +1,21 @@
 HTTP/1.1 200 OK
-Cache-Control: private, max-age=0
+Server: Sucuri/Cloudproxy
+Date: Thu, 11 Apr 2019 20:06:49 GMT
 Content-Type: text/xml; charset=utf-8
-Server: Microsoft-IIS/8.5
-X-AspNet-Version: 4.0.30319
-X-Powered-By: ASP.NET
-X-Powered-By-Plesk: PleskWin
-Date: Thu, 18 Oct 2018 00:49:13 GMT
+Content-Length: 141
 Connection: close
-Content-Length: 148
+X-Sucuri-ID: 12013
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Security-Policy: upgrade-insecure-requests;
+Cache-Control: private, max-age=0
+X-AspNet-Version: 4.0.30319
+X-Powered-By-Plesk: PleskWin
 
 <?xml version="1.0" encoding="utf-8"?>
-<string xmlns="Aliant.Api">{ "sale":{
-	"errorcode":"404",
-	"message":"Unexistent transaction"
-	}
+<string xmlns="Aliant.Api">{ "error":{
+"code":"404",
+"message":"Unexistent transaction"
+}
  }</string>

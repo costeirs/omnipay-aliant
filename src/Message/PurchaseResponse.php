@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\Aliant\Message;
 
 use Omnipay\Common\Message\RedirectResponseInterface;
@@ -27,8 +28,8 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
         // assemble url
         $url =
-        'https://aliantpay.io/invoice?'.
-        http_build_query($parts, '', '&');
+            'https://aliantpay.io/invoice?' .
+            http_build_query($parts, '', '&');
 
         return $url;
     }
@@ -37,7 +38,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     {
         return parent::isSuccessful();
     }
-    
+
     public function isSuccessful()
     {
         // redirect requests are never successful

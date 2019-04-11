@@ -1,4 +1,5 @@
 <?php
+
 namespace Omnipay\Aliant\Message;
 
 /**

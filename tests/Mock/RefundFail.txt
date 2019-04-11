@@ -1,8 +1,8 @@
 HTTP/1.1 200 OK
 Server: Sucuri/Cloudproxy
-Date: Thu, 11 Apr 2019 20:09:19 GMT
+Date: Thu, 11 Apr 2019 19:28:20 GMT
 Content-Type: text/xml; charset=utf-8
-Content-Length: 156
+Content-Length: 155
 Connection: close
 X-Sucuri-ID: 12013
 X-XSS-Protection: 1; mode=block
@@ -16,6 +16,6 @@ X-Powered-By-Plesk: PleskWin
 <?xml version="1.0" encoding="utf-8"?>
 <string xmlns="Aliant.Api">{ "error":{
 "code":"422",
-"message":"The price has to be bigger than zero."
+"message":"Only completed sales can be refunded"
 }
  }</string>

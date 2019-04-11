@@ -7,15 +7,17 @@ use \Omnipay\Common\Exception\InvalidRequestException;
 
 class AliantGatewayTest extends GatewayTestCase
 {
+    private $options, $inquiryOptions;
+
     public function setUp()
     {
         parent::setUp();
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
-        $this->options = array(
+        $this->options = [
             'amount' => '1.00',
             'description' => 'Order 123',
             'returnUrl' => 'http://www.example.com/complete'
-        );
+        ];
 
         $this->inquiryOptions = [
             'transactionReference' => 101118
@@ -63,7 +65,6 @@ class AliantGatewayTest extends GatewayTestCase
         $this->assertEquals('Unexistent transaction', $response->getMessage());
     }
 
-
     public function testPurchaseSuccessWithNullEmail()
     {
         $this->expectException(InvalidRequestException::class);
@@ -79,4 +80,25 @@ class AliantGatewayTest extends GatewayTestCase
 
         $response = $operation->send();
     }
+
+    public function testRefundFailure()
+    {
+        $this->setMockHttpResponse('RefundFail.txt');
+
+        $response = $this->gateway->refund($this->inquiryOptions)->send();
+
+        $this->assertFalse($response->isSuccessful());
+        $this->assertEquals('422', $response->getCode());
+    }
+
+    /*
+    public function testRefundSuccess()
+    {
+        $this->setMockHttpResponse('RefundSuccess.txt');
+
+        $response = $this->gateway->refund($this->inquiryOptions)->send();
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals('101118', $response->getTransactionReference());
+    }
+    */
 }

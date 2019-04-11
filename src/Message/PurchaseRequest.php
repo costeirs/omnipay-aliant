@@ -1,7 +1,9 @@
 <?php
+
 namespace Omnipay\Aliant\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\Common\Exception\InvalidResponseException;
 
 /**
  * Dummy Authorize Request
@@ -15,12 +17,12 @@ class PurchaseRequest extends AbstractRequest
 
     protected function getBillingData()
     {
-        $data = array();
+        $data = [];
         if ($card = $this->getCard()) {
             if (!empty($card->getBillingName())) {
                 $data['name'] = $card->getBillingName();
             } else {
-                $data['name'] = $card->getBillingFirstName().' '.$card->getBillingLastName();
+                $data['name'] = $card->getBillingFirstName() . ' ' . $card->getBillingLastName();
             }
             $data['phone'] = $card->getBillingPhone();
             $data['email'] = $card->getEmail();
@@ -33,29 +35,38 @@ class PurchaseRequest extends AbstractRequest
         return $data;
     }
 
+    /**
+     * @return array
+     * @throws InvalidRequestException
+     */
     public function getData()
     {
         $this->validate('amount');
 
         if ($this->getSendInvoice() && empty($this->getEmail())) {
-            throw new InvalidRequestException("The email paramater cannot be empty if email_it is true");
+            throw new InvalidRequestException("The email parameter cannot be empty if email_it is true");
         }
 
-        $data = array(
+        $data = [
             'amount' => $this->getAmount(),
             'description' => $this->getDescription(),
             'email' => $this->getEmail(),
             'email_it' => $this->getSendInvoice(),
             'sandbox' => $this->getTestMode(),
-        );
-        
+        ];
+
         $data = array_merge($data, $this->getBillingData());
 
         $data = array_filter($data, 'strlen');
-        
+
         return $data;
     }
 
+    /**
+     * @param array $data
+     * @return PurchaseResponse
+     * @throws InvalidResponseException
+     */
     public function sendData($data)
     {
         $json = json_encode($data);
@@ -67,7 +78,7 @@ class PurchaseRequest extends AbstractRequest
                 "Content-Type" => "application/x-www-form-urlencoded; charset=utf-8"
             ],
             // byzantine parameter serialization
-            "authorization=".$this->getAuthString()."&json=".$json
+            "authorization=" . $this->getAuthString() . "&json=" . $json
         );
         return $this->response = new PurchaseResponse($this, $httpResponse->getBody()->getContents());
     }

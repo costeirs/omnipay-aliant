@@ -1,6 +1,7 @@
 # omnipay-aliant
 
-**Aliant driver for the Omnipay PHP payment processing library**
+## Aliant driver for the Omnipay PHP payment processing library
+
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic,
 multi-gateway payment processing library for PHP.
 This package implements Aliant support for Omnipay.
@@ -28,7 +29,7 @@ $request = $gateway->purchase([
     'returnUrl' => 'http://.../complete'
 ]);
 
-// returns data regarding the current sale (i.e. invoice id)
+// returns data regarding the created invoice (i.e. id)
 $response = $request->send();
 
 // redirect to hosted invoice page
@@ -40,6 +41,16 @@ $response->redirect();
 ```php
 // check on status of invoice
 $status = $gateway->fetchTransaction([
+    'transactionReference' => 101118
+]);
+
+var_dump($status);
+```
+
+### Refund an existing invoice
+
+```php
+$status = $gateway->refund([
     'transactionReference' => 101118
 ]);
 

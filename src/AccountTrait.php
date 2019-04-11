@@ -1,12 +1,12 @@
 <?php
+
 namespace Omnipay\Aliant;
 
 /**
- * Appease omnipay test gods
+ * Appease Omnipay test gods
  */
 trait AccountTrait
 {
-
     public function getUsername()
     {
         return $this->getParameter('username');
@@ -16,7 +16,7 @@ trait AccountTrait
     {
         return $this->setParameter('username', $username);
     }
-    
+
     public function getPassword()
     {
         return $this->getParameter('password');

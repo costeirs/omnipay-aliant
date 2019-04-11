@@ -1,12 +1,11 @@
 <?php
+
 namespace Omnipay\Aliant;
 
-use \Omnipay\Aliant\AccountTrait;
-
-use \Omnipay\Common\AbstractGateway;
-
-use \Omnipay\Aliant\Message\PurchaseRequest;
-use \Omnipay\Aliant\Message\SaleInquiryRequest;
+use Omnipay\Aliant\Message\PurchaseRequest;
+use Omnipay\Aliant\Message\RefundRequest;
+use Omnipay\Aliant\Message\SaleInquiryRequest;
+use Omnipay\Common\AbstractGateway;
 
 /**
  * Aliant Gateway
@@ -14,7 +13,7 @@ use \Omnipay\Aliant\Message\SaleInquiryRequest;
 class Gateway extends AbstractGateway
 {
     use AccountTrait;
-    
+
     public function getName()
     {
         return 'Aliant';
@@ -22,12 +21,12 @@ class Gateway extends AbstractGateway
 
     public function getDefaultParameters()
     {
-        return array(
+        return [
             'username' => '',
             'password' => '',
             'returnUrl' => '',
             'testMode' => false,
-        );
+        ];
     }
 
     public function getTestMode()
@@ -39,23 +38,24 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('testMode', $value);
     }
-    public function getreturnUrl()
+
+    public function getReturnUrl()
     {
         return $this->getParameter('returnUrl');
     }
 
-    public function setreturnUrl($value)
+    public function setReturnUrl($value)
     {
         return $this->setParameter('returnUrl', $value);
     }
-    
+
     /**
      * Create a new sale request.
      *
      * @param array $parameters
-     * @return \Omnipay\Aliant\Message\PurchaseRequest
+     * @return PurchaseRequest
      */
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest(PurchaseRequest::class, $parameters);
     }
@@ -64,10 +64,22 @@ class Gateway extends AbstractGateway
      * Create a sale inquiry request.
      *
      * @param array $parameters
-     * @return \Omnipay\Aliant\Message\SaleInquiryRequest
+     * @return SaleInquiryRequest
      */
-    public function fetchTransaction(array $parameters = array())
+    public function fetchTransaction(array $parameters = [])
     {
         return $this->createRequest(SaleInquiryRequest::class, $parameters);
+    }
+
+    /**
+     * Issue a refund.
+     * Refunds can only be issued for completed invoices.
+     *
+     * @param array $parameters
+     * @return RefundRequest
+     */
+    public function refund(array $parameters = [])
+    {
+        return $this->createRequest(RefundRequest::class, $parameters);
     }
 }
