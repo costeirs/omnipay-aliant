@@ -6,7 +6,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Exception\InvalidResponseException;
 
 /**
- * Dummy Authorize Request
+ * Sale Inquiry Request
  */
 class SaleInquiryRequest extends AbstractRequest
 {

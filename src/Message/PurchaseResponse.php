@@ -5,7 +5,7 @@ namespace Omnipay\Aliant\Message;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
- * Aliant Response
+ * Purchase Response
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
